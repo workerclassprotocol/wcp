@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+.env*.local
+*.env
+
+# Website lives in fafolab/wcp-web (private repo)
+web/
+
+# CI config managed separately
+.github/

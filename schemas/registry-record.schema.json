@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://workerclassprotocol.dev/schemas/registry-record.schema.json",
+  "title": "WCP Worker Registry Record",
+  "description": "The registry record a worker submits when enrolling with a Hall (WCP §5.1)",
+  "type": "object",
+  "required": ["worker_id", "worker_species_id", "capabilities", "risk_tier", "artifact_hash"],
+  "properties": {
+    "worker_id": {
+      "type": "string",
+      "pattern": "^org\\.[a-z0-9-]+\\.[a-z0-9-]+(\\.[a-z0-9-]+)*$",
+      "description": "Unique instance ID. Format: org.<name>.<type>[.<qualifier>]"
+    },
+    "worker_species_id": {
+      "type": "string",
+      "pattern": "^wrk\\.[a-z0-9-]+(\\.[a-z0-9-]+)*$",
+      "description": "Species/type identifier. Format: wrk.<domain>.<type>"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "Capability IDs this worker can fulfill"
+    },
+    "risk_tier": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"],
+      "description": "Worker's declared risk tier"
+    },
+    "owner": {
+      "type": "string",
+      "description": "Org ID of the owner (e.g. org.acme)"
+    },
+    "artifact_hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "SHA-256 of this record without the artifact_hash field (WCP §5.10)"
+    }
+  },
+  "additionalProperties": true
+}

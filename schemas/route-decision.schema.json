@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://workerclassprotocol.dev/schemas/route-decision.schema.json",
+  "title": "WCP Route Decision",
+  "description": "The Hall's routing decision in response to a RouteInput (WCP §5)",
+  "type": "object",
+  "required": ["outcome", "correlation_id", "decided_at"],
+  "properties": {
+    "outcome": {
+      "type": "string",
+      "enum": ["DISPATCH", "DENY", "STEWARD_HOLD"],
+      "description": "Routing outcome"
+    },
+    "worker_id": {
+      "type": "string",
+      "description": "Worker assigned (only present when outcome is DISPATCH)"
+    },
+    "deny_code": {
+      "type": "string",
+      "description": "Deny reason code (only present when outcome is DENY). E.g. DENY_NO_WORKER, DENY_POLICY_BLOCK"
+    },
+    "controls_applied": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Control IDs that were applied to this decision"
+    },
+    "correlation_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Same as RouteInput.correlation_id — links request to decision"
+    },
+    "decided_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp of decision"
+    }
+  }
+}

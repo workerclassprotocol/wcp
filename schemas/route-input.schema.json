@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://workerclassprotocol.dev/schemas/route-input.schema.json",
+  "title": "WCP Route Input",
+  "description": "The capability request an agent submits to the Hall (WCP §4)",
+  "type": "object",
+  "required": ["capability_id", "env", "data_label", "tenant_risk", "qos_class", "tenant_id", "correlation_id"],
+  "properties": {
+    "capability_id": { "type": "string", "description": "WCP capability ID (e.g. cap.doc.summarize)" },
+    "env": { "type": "string", "enum": ["dev", "stage", "prod"], "description": "Execution environment" },
+    "data_label": { "type": "string", "description": "Data classification label (e.g. PUBLIC, INTERNAL, CONFIDENTIAL)" },
+    "tenant_risk": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+    "qos_class": { "type": "string", "enum": ["P0", "P1", "P2", "P3"] },
+    "tenant_id": { "type": "string", "description": "Requesting tenant identifier" },
+    "correlation_id": { "type": "string", "format": "uuid" }
+  }
+}
